@@ -78,7 +78,8 @@ To package a Python function into **one Python file**, complete the following st
 
 To package a Python function into a **ZIP file**, complete the following steps.
 
-1. Prepare the ZIP file.
+1. Prepare the ZIP file, the zip file must contain a parent directory with the same name as the zip file itself.
+   For example, if the zip file is `func.zip`, it should include a top-level directory named `func`, and place `src`, `deps`, and `requirements.txt` inside this directory, as shown below:
 
    ```text
     Assuming the zip file is named as `func.zip`, unzip the `func.zip` folder:
@@ -87,24 +88,25 @@ To package a Python function into a **ZIP file**, complete the following steps.
         "func/deps"
    ```
 
+
    Take the [exclamation.zip](https://github.com/apache/pulsar/tree/master/tests/docker-images/latest-version-image/python-examples) file as an example. The internal structure of the example is as follows.
 
    ```text
-    .
+    exclamation
     ├── deps
-    │   └── sh-1.12.14-py2.py3-none-any.whl
+    │   └── sh-1.12.14-py2.py3-none-any.whl
     └── src
         └── exclamation.py
    ```
 
-2. Copy the ZIP file to the Pulsar image.
+3. Copy the ZIP file to the Pulsar image.
 
    ```bash
     docker exec -it [CONTAINER ID] /bin/bash
     docker cp <path of ZIP file>  CONTAINER ID:/pulsar
    ```
 
-3. Run the Python function using the following command.
+4. Run the Python function using the following command.
 
    ```shell
    ./bin/pulsar-admin functions localrun \
